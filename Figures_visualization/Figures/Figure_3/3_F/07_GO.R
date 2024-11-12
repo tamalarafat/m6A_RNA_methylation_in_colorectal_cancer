@@ -1,0 +1,59 @@
+# Specify the projects dir containing all the functions of scRNA-seq analysis pipeline
+source("~/Documents/Projects/my_projects/m6A_RNA_methylation_in_colorectal_cancer/library_and_packages/library_handler.R", .GlobalEnv)
+
+# Functions to perfrom analysis tasks
+funcset <- list.files("~/Documents/Projects/my_projects/nanopore_RNA_DNA_analysis_functions", pattern = "*.R$", full.names = TRUE)
+sapply(funcset, source, .GlobalEnv)
+
+# Data input directory
+input_dir = "~/Documents/Projects/Git_repositories/effect_of_METTL3_on_m6A_in_cancer/Analyses/Analysis_of_all_samples/01_whole_data_analysis/analysis_output/11_DRACH_motif/"
+
+# Directory to store the results
+res_dir = "~/Documents/Projects/Git_repositories/effect_of_METTL3_on_m6A_in_cancer/Analyses/Analysis_of_all_samples/01_whole_data_analysis/analysis_output/"
+
+# Load the table with differential modification rate - filtered on all sites for p-value 0.05
+temp_df = loadRData("all_significant_sites.RData")
+
+# control group
+temp_df = temp_df[temp_df$diff_mod_rate < 0, ]
+
+# how many k-mers were detected
+temp_df = temp_df[!is.na(temp_df$mers), ]
+
+# Load all entrez ids of the hg
+hg_entrz = read.table(str_c(res_dir, "08_genes_and_their_function/hg_complete_set_entrez_id.txt"))
+
+hg_entrz = as.character(str_sort(hg_entrz[, 1], numeric = TRUE))
+
+hg_entrz = hg_entrz[!is.na(hg_entrz)]
+
+# performing the over representation analysis (ORA) for Gene Ontology class - Biological processes
+GeneSet_ORA_BP <- enrichGO(gene = unique(temp_df$entrezgene_id),
+                           universe = hg_entrz,
+                           OrgDb = org.Hs.eg.db,
+                           keyType = "ENTREZID", 
+                           ont = "BP",
+                           pAdjustMethod = "BH",
+                           pvalueCutoff = 0.05,
+                           readable = TRUE,
+                           pool = FALSE)
+
+
+p <- dotplot(GeneSet_ORA_BP, showCategory = 10) + 
+  labs(colour = "p.adj") + 
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(color = grp_col[2]),
+        axis.title.x = element_text(size = 22, face = "bold", color = "black"), 
+        axis.ticks.length = unit(.30, "cm"), 
+        axis.text.x = element_text(size = 22, color = "black", face = "bold"),
+        axis.text.y = element_text(size = 22, color = "black", face = "bold"),
+        legend.key = element_rect(size = 22),
+        legend.text = element_text(size = 22),
+        legend.title = element_text(size = 22, face = "bold"),
+        legend.spacing = unit(2.0, 'cm'),
+        legend.key.size = unit(3,"line"),
+        legend.position = "none")
+
+ggsave(filename = "07_Figure_3.png", plot = p, width = 14, height = 14, dpi = 300)

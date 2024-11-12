@@ -23,12 +23,6 @@ effect:
   - control # This is the reference group;
   - ki      # This is a treatment group;
 
-# Columns to merge by: merge samples modification tables by the column tags/names
-merge_columns:
-  - "ref_seq_id"
-  - "start_pos"
-  - "strand"
-
 # Threshold for filtering modification sites based on minimum number of reads or coverage in any of the samples
 ncov_threshold: 30   # Options: "integer", "NULL"
 
@@ -48,17 +42,11 @@ signature_motif_pattern:
   DRACH: "[AGU][AG]AC[ACU]"  # Explanation : D = A, G, or U; R = A or G; H = A, C, or U
   # Example: "[ACU][AG]AC[AGU]"
 
-# Path to dorado tool
-ontdorado: "/Users/ya_tamal/Documents/Tools/dorado-0.8.2-osx-arm64/bin/dorado"
-
 # Basecalling and modification parameters
 # model_dir: "/Users/yasir/Documents/Projects/my_projects/first_snakemake/models"
 analyte_type: "RNA"
 biomart_search_filter: "ensembl_transcript_id"
 biomart_attribute_search: "hgnc_symbol"
-dorado_basecalling_model: "rna004_130bps_hac@v5.0.0"
-dorado_modification_model: "rna004_130bps_hac@v5.0.0_m6A@v1"
-modification_call: "m6A"
 
 ### RNA-seq: gene expression analysis configuration
 # Gene expression count table, Gene ID or names to assign in the gene expression count table. Define the name class "ensembl_gene_id", "ensembl_gene_id_version", "hgnc_symbol"
