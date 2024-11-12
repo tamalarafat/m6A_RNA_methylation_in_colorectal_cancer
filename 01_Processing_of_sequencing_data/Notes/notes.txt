@@ -1,0 +1,1 @@
+1. NanoCount was installed using "pip install NanoCount" (env NanoCount)
