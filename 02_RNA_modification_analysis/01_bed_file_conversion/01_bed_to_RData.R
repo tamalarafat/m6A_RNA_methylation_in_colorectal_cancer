@@ -15,7 +15,9 @@ if(!dir.exists(str_c(res_dir))){
 }
 
 # Data directroy
-data_dir <- "~/Documents/Projects/m6A_RNA_modification_project/example_bed_files/"
+data_dir <- "~/Documents/Projects/m6A_RNA_modification_project/samples_bed_files/"
+# Example data directory
+# data_dir <- "~/Documents/Projects/m6A_RNA_modification_project/example_bed_files/"
 
 file_paths <- list.files(data_dir, pattern = "*.bed", full.names = TRUE)
 

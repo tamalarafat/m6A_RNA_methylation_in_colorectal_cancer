@@ -20,7 +20,7 @@ install_bioc_if_missing <- function(pkg) {
 }
 
 # Install required CRAN packages
-cran_packages <- c("ggplot2", "ggrepel", "ggseqlogo", "reshape2", "magrittr", "stringr", "readr", "yaml", "dplyr")
+cran_packages <- c("ggplot2", "ggrepel", "ggseqlogo", "reshape2", "magrittr", "stringr", "readr", "yaml", "dplyr", "seqgendiff")
 lapply(cran_packages, install_if_missing)
 
 # Install required Bioconductor packages
@@ -45,6 +45,7 @@ suppressMessages(library(org.Hs.eg.db))
 suppressMessages(library(clusterProfiler))
 suppressMessages(library(tximport))
 suppressMessages(library(DESeq2))
+suppressMessages(library(seqgendiff))
 
 # Define the colors
 grp_col <- c("#FD6467", "#00A08A", "#F98400", "#046C9A", "#075149FF", "#FFA319FF", "#00BF81", "#767676FF", "#FD8CC1FF")
