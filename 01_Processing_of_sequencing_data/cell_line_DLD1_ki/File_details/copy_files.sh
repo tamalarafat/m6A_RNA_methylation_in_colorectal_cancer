@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp /ds/storage/common/raw/20240514_iwohlers_ont_rnaseq_mettl3_jabs/METTL3_directRNA_samples/PAS97975_FLO-PRO004RA-SQK-RNA004_MPI_Ki/20240503_1801_1E_PAS97975_fda36cd9/pod5_pass/*.pod5 /ds/storage/common/ytamal_work/Project_14052024_ONT_RNAseq/PAS97975_FLO_PRO004RA_SQK_RNA004_MPI_Ki/analysis_of_the_sample/pod5_pass
+
